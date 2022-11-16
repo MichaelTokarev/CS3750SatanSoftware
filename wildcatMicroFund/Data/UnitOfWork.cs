@@ -180,32 +180,32 @@ namespace wildcatMicroFund.Data
             }
         }
 
-        private IRepository<Survey> _Survey;
-        public IRepository<Survey> Survey
+        private IRepository<QuestionUse> _Survey;
+        public IRepository<QuestionUse> Survey
         {
             get
             {
-                _Survey ??= new Repository<Survey>(_dbContext);
+                _Survey ??= new Repository<QuestionUse>(_dbContext);
                 return _Survey;
             }
         }
 
-        private IRepository<SurveyQuestion> _SurveyQuestion;
-        public IRepository<SurveyQuestion> SurveyQuestion
+        private IRepository<AssignedQuestion> _AssignedQuestion;
+        public IRepository<AssignedQuestion> SurveyQuestion
         {
             get
             {
-                _SurveyQuestion ??= new Repository<SurveyQuestion>(_dbContext);
-                return _SurveyQuestion;
+                _AssignedQuestion ??= new Repository<AssignedQuestion>(_dbContext);
+                return _AssignedQuestion;
             }
         }
 
-        private IRepository<SurveyType> _SurveyType;
-        public IRepository<SurveyType> SurveyType
+        private IRepository<QCategory> _SurveyType;
+        public IRepository<QCategory> SurveyType
         {
             get
             {
-                _SurveyType ??= new Repository<SurveyType>(_dbContext);
+                _SurveyType ??= new Repository<QCategory>(_dbContext);
                 return _SurveyType;
             }
         }

@@ -23,9 +23,9 @@ namespace wildcatMicroFund.Data
         public DbSet<Role> Role { get; set; }
         public DbSet<Score> Score { get; set; }
         public DbSet<Status> Status { get; set; }
-        public DbSet<Survey> Survey { get; set; }
-        public DbSet<SurveyQuestion> SurveyQuestion { get; set; }
-        public DbSet<SurveyType> SurveyType { get; set; }
+        public DbSet<QuestionUse> Survey { get; set; }
+        public DbSet<AssignedQuestion> AssignedQuestion { get; set; }
+        public DbSet<QCategory> SurveyType { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<UserAssignment> UserAssignment { get; set; }
         public DbSet<UserRole> UserRole { get; set; }

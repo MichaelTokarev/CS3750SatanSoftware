@@ -5,15 +5,15 @@ namespace wildcatMicroFund.Models
     public class Question
     {
         [Key]
-        public int Id { get; set; }
+        public int QuestionID { get; set; }
 
         [Required]
-        [Display(Name = "Question Description")]
-        public string? QuestDesc { get; set; }
+        [Display(Name = "Question Summary")]
+        public string? QuestionSummary { get; set; }
 
         [Required]
-        [Display(Name = "Survey Question")]
-        public string? SurveyQuestion { get; set; }
+        [Display(Name = "Question Extended")]
+        public string? QuestionExtended { get; set; }
 
         [Required]
         [Display(Name = "Active")]

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace wildcatMicroFund.Models
 {
@@ -10,7 +11,7 @@ namespace wildcatMicroFund.Models
         public int UserID { get; set; }
 
         [Display(Name = "Score")]
-        [Range(1, 10, ErrorMessage = "Score must be from 1 to 10.")]
+        //[Range(1, 10, ErrorMessage = "Score must be from 1 to 10.")]
         public double ScoreValue { get; set; }
 
         [Display(Name = "Score Comments")]
@@ -21,5 +22,11 @@ namespace wildcatMicroFund.Models
 
         [Display(Name = "Response ID")]
         public int ResponseID { get; set; }
+
+        [ForeignKey("PitchEvAppID")]
+        public virtual PitchEventApplication? PitchEventApplication { get; set; }
+
+        [ForeignKey("AssignedQuestionID")]
+        public virtual AssignedQuestion? AssignedQuestion { get; set; }
     }
 }
