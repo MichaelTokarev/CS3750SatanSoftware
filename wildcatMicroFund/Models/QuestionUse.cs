@@ -10,6 +10,9 @@ namespace wildcatMicroFund.Models
         public int QuestID { get; set; }
         public int QCategoryID { get; set; }
 
+        [Display(Name = "Point Value")]
+        public int QuestPointValue { get; set; }
+
         [ForeignKey("QuestID")]
         public virtual Question? Question { get; set; }
 
