@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace wildcatMicroFund.Models
 {
@@ -14,5 +15,8 @@ namespace wildcatMicroFund.Models
         [Display(Name = "AvailabilityEnd")]
         public DateTime AvailEnd { get; set; }
         //AvailDay?
+
+        //[ForeignKey("Id")]
+        //public virtual ? FoodType { get; set; }
     }
 }

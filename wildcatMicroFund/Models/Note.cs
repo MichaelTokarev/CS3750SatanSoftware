@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace wildcatMicroFund.Models
 {
@@ -18,5 +19,13 @@ namespace wildcatMicroFund.Models
         [Required]
         [Display(Name = "Note Creator")]
         public int NoteCreator { get; set; }
+        public int NoteTypeID { get; set; }
+        public int AppID { get; set; }
+
+        [ForeignKey("NoteTypeID")]
+        public virtual NoteType? NoteType { get; set; }
+
+        [ForeignKey("AppID")]
+        public virtual Application? Application { get; set; }
     }
 }

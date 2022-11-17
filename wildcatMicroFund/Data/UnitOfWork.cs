@@ -191,7 +191,7 @@ namespace wildcatMicroFund.Data
         }
 
         private IRepository<AssignedQuestion> _AssignedQuestion;
-        public IRepository<AssignedQuestion> SurveyQuestion
+        public IRepository<AssignedQuestion> AssignedQuestion
         {
             get
             {
@@ -237,6 +237,16 @@ namespace wildcatMicroFund.Data
             {
                 _UserRole ??= new Repository<UserRole>(_dbContext);
                 return _UserRole;
+            }
+        }
+
+        private IRepository<UserAppAssignType> _UserAppAssignType;
+        public IRepository<UserAppAssignType> UserAppAssignType
+        {
+            get
+            {
+                _UserAppAssignType ??= new Repository<UserAppAssignType>(_dbContext);
+                return _UserAppAssignType;
             }
         }
 

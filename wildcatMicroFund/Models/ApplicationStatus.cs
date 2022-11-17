@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace wildcatMicroFund.Models
 {
@@ -12,6 +13,10 @@ namespace wildcatMicroFund.Models
         [Display(Name = "StatusDate")]
         public DateTime StatusDate { get; set; }
 
+        [ForeignKey("AppID")]
+        public virtual Application? Application { get; set; }
 
+        [ForeignKey("StatusID")]
+        public virtual Status? Status { get; set; }
     }
 }
