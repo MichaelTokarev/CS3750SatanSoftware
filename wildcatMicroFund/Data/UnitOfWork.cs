@@ -210,6 +210,16 @@ namespace wildcatMicroFund.Data
             }
         }
 
+        private IRepository<QuestionDetail> _QuestionDetail;
+        public IRepository<QuestionDetail> QuestionDetail
+        {
+            get
+            {
+                _QuestionDetail ??= new Repository<QuestionDetail>(_dbContext);
+                return _QuestionDetail;
+            }
+        }
+
         private IRepository<User> _User;
         public IRepository<User> User
         {

@@ -5,7 +5,7 @@ namespace wildcatMicroFund.Models
     public class QCategory
     {
         [Key]
-        public int QCategoryType { get; set; }
+        public int QCategoryID { get; set; }
         [Required]
         [Display(Name = "Question Category")]
         public string QCategoryDesc { get; set; }

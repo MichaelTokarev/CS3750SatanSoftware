@@ -28,6 +28,7 @@ namespace wildcatMicroFund.Interfaces
         public IRepository<UserAssignment> UserAssignment { get; }
         public IRepository<UserRole> UserRole { get; }
         public IRepository<UserAppAssignType> UserAppAssignType { get; }
+        public IRepository<QuestionDetail> QuestionDetail { get; }
 
         //save changes to data source
         void Commit();
