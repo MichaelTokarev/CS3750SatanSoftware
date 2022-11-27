@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 using wildcatMicroFund.Areas.Mentor.ViewModels;
 using wildcatMicroFund.Interfaces;
 using wildcatMicroFund.Models;
@@ -21,6 +22,7 @@ public class ReviewApplicationsController : Controller
 
     public ViewResult Index()
     {
+        
         IEnumerable<ApplicationStatus> ReviewApplication = _unitOfWork.ApplicationStatus.List(r => r.Status.StatusID == 2 || r.Status.StatusID == 5, r => r.Application.Id, "Application,Status");//WHERE, ORDERBY, JOIN
         return View(ReviewApplication);
     }
@@ -43,20 +45,23 @@ public class ReviewApplicationsController : Controller
 
         ReviewApplicationObj = new ReviewApplicationVM
         {
-            //UserApplicationAssignmentType = userAssignment,
-            Entrepreneur = ent,
-            Mentor = mentor,
+            
+            UserAssignment = new UserAssignment(),
+            Entrepreneur = _unitOfWork.ApplicationUser.Get(e => e.Id == ent.User.Id),
+            Mentor = (mentor.UserAssignmentID == null ? null : _unitOfWork.ApplicationUser.Get(m=> m.Id == mentor.User.Id)),
             //Judge = judge,
             ApplicationStatus = appStatus,
             Application = app,
-            Status = status,
+            Status = _unitOfWork.Status.Get(s => s.StatusID == statId),
             StatusList = stati.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc }),
             MentorList = mentorList.Select(m => new SelectListItem { Value = m.Id.ToString(), Text=m.FullName.ToString() })
+
+            
         };
 
         if (id != null)
         {
-            ReviewApplicationObj.Entrepreneur = _unitOfWork.UserAssignment.Get(u => u.UserAssignmentID == id, true);
+            //ReviewApplicationObj.Entrepreneur = _unitOfWork.ApplicationUser.Get(u => u. == id, true);
             if (ReviewApplicationObj == null)
             {
                 return NotFound();
@@ -76,7 +81,7 @@ public class ReviewApplicationsController : Controller
         }
 
                                         
-        _unitOfWork.UserAssignment.Update(ReviewApplicationObj.Entrepreneur);
+        _unitOfWork.UserAssignment.Update(ReviewApplicationObj.UserAssignment);
         
         _unitOfWork.Commit();
         return RedirectToAction("Index");

@@ -5,10 +5,10 @@ namespace wildcatMicroFund.Areas.Mentor.ViewModels
 {
     public class ReviewApplicationVM
     {
-        public UserApplicationAssignmentType? UserApplicationAssignmentType { get; set; }
-        public UserAssignment? Entrepreneur { get; set; }
-        public UserAssignment? Mentor { get; set; }
-        public UserAssignment? Judge { get; set; }
+        public UserAssignment? UserAssignment { get; set; }
+        public ApplicationUser? Entrepreneur { get; set; }
+        public ApplicationUser? Mentor { get; set; }
+        public ApplicationUser? Judge { get; set; }
         public ApplicationStatus? ReviewApplication { get; set; }
         public ApplicationStatus? ApplicationStatus { get; set; }
         public Application? Application { get; set; }

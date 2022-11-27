@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 using wildcatMicroFund.Areas.Admin.ViewModels;
 using wildcatMicroFund.Areas.Mentor.ViewModels;
 using wildcatMicroFund.Interfaces;
@@ -29,12 +30,12 @@ public class AdminReviewApplicationsController : Controller
     [HttpGet]
     public IActionResult Upsert(int? id, int? appId) //optional id needed with edit mode vs create
     {
-
+        
         var stati = _unitOfWork.Status.List();
 
         ReviewApplicationObj = new ReviewApplicationVM
         {
-            ReviewApplication = new ApplicationStatus(),
+            ReviewApplication = new ApplicationStatus(),            
             Application = _unitOfWork.Application.Get(a => a.Id == appId),
             Status = _unitOfWork.Status.Get(s => s.StatusID == id),
             StatusList = stati.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc })
@@ -60,8 +61,11 @@ public class AdminReviewApplicationsController : Controller
         {
             return View();
         }
-
-
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        
+        ReviewApplicationObj.ReviewApplication.StatusDate = DateTime.Now;
+        ReviewApplicationObj.ReviewApplication.UserID = claim.Value;
         _unitOfWork.ApplicationStatus.Update(ReviewApplicationObj.ReviewApplication);
 
         _unitOfWork.Commit();
