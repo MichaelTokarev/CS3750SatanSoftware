@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 using wildcatMicroFund.Areas.Admin.ViewModels;
 using wildcatMicroFund.Areas.Mentor.ViewModels;
-// using wildcatMicroFund.Areas.Mentor.ViewModels;
 using wildcatMicroFund.Interfaces;
 using wildcatMicroFund.Models;
 
@@ -23,19 +23,19 @@ public class AdminReviewApplicationsController : Controller
 
     public ViewResult Index()
     {
-        IEnumerable<ReviewApplication> AdminReviewApplication = _unitOfWork.ReviewApplication.List(null, null, "Application,Status");//WHERE, ORDERBY, JOIN
+        IEnumerable<ApplicationStatus> AdminReviewApplication = _unitOfWork.ApplicationStatus.List(null, null, "Application,Status");//WHERE, ORDERBY, JOIN
         return View(AdminReviewApplication);
     }
 
     [HttpGet]
     public IActionResult Upsert(int? id, int? appId) //optional id needed with edit mode vs create
     {
-
+        
         var stati = _unitOfWork.Status.List();
 
         ReviewApplicationObj = new ReviewApplicationVM
         {
-            ReviewApplication = new ReviewApplication(),
+            ReviewApplication = new ApplicationStatus(),            
             Application = _unitOfWork.Application.Get(a => a.Id == appId),
             Status = _unitOfWork.Status.Get(s => s.StatusID == id),
             StatusList = stati.Select(f => new SelectListItem { Value = f.StatusID.ToString(), Text = f.StatusDesc })
@@ -43,7 +43,7 @@ public class AdminReviewApplicationsController : Controller
 
         if (id != null)
         {
-            ReviewApplicationObj.ReviewApplication = _unitOfWork.ReviewApplication.Get(u => u.Id == id, true);
+            ReviewApplicationObj.ReviewApplication = _unitOfWork.ApplicationStatus.Get(u => u.AppStatId == id, true);
             if (ReviewApplicationObj == null)
             {
                 return NotFound();
@@ -61,9 +61,12 @@ public class AdminReviewApplicationsController : Controller
         {
             return View();
         }
-
-
-        _unitOfWork.ReviewApplication.Update(ReviewApplicationObj.ReviewApplication);
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        
+        ReviewApplicationObj.ReviewApplication.StatusDate = DateTime.Now;
+        ReviewApplicationObj.ReviewApplication.UserID = claim.Value;
+        _unitOfWork.ApplicationStatus.Update(ReviewApplicationObj.ReviewApplication);
 
         _unitOfWork.Commit();
         return RedirectToAction("Index");

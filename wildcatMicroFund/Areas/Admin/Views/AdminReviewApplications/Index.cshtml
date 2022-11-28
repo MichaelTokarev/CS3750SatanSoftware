@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ReviewApplication>
+﻿@model IEnumerable<ApplicationStatus>
 
 @{ViewData["Title"] = "Review Application";}
 
@@ -53,7 +53,7 @@
 
                     <td style="width:0px; white-space:nowrap; text-align:center">
                         @*Actions*@
-                        <a asp-controller="AdminReviewApplications" asp-action="Upsert" asp-route-id="@obj.Id" asp-route-appId="@obj.Application.Id" class="btn btn-primary mx-2">
+                        <a asp-controller="AdminReviewApplications" asp-action="Upsert" asp-route-id="@obj.AppStatId" asp-route-appId="@obj.Application.Id" class="btn btn-primary mx-2">
                             @if (@obj.Status.StatusDesc == "Submitted")
                             {
                                 <span>Review</span>
